@@ -3,7 +3,10 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const isPublicPath = path === "/frontend/login" || path === "/frontend/signup";
+  const isPublicPath =
+    path === "/frontend/login" ||
+    path === "/frontend/signup" ||
+    path === "/frontend/verifyemail";
   const token = request.cookies.get("token")?.value || "";
   if (isPublicPath && token) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
@@ -13,5 +16,11 @@ export function middleware(request: NextRequest) {
   }
 }
 export const config = {
-  matcher: ["/frontend", "/frontend/login", "/frontend/profile", "/frontend/signup"],
+  matcher: [
+    "/frontend",
+    "/frontend/login",
+    "/frontend/profile",
+    "/frontend/signup",
+    "/frontend/verifyemail",
+  ],
 };
